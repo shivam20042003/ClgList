@@ -2,6 +2,9 @@ import data from "../../public/Jossa list.json"
 
 export default function Home() {
   const x = data;
+  
+  const h = x.filter((y)=>{return data.indexOf(y)<=100});
+  
   return (
     <>
       <table>
@@ -17,7 +20,7 @@ export default function Home() {
           <th>Closing Rank</th>
         </tr>
         </thead>
-        {x.map((y)=>{
+        {h.map((y)=>{
           return (
             <tbody key={data.indexOf(y)}>
               <tr>
