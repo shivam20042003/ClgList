@@ -1,12 +1,19 @@
+'use client'
 import data from "../../public/Jossa list.json"
+import React,{ useState } from "react";
 
 export default function Home() {
   const x = data;
-  
-  const h = x.filter((y)=>{return data.indexOf(y)<=100});
+  const [i,setI] = useState(0);
+  const h = x.filter((y)=>{
+    const z = data.indexOf(y)<100+i&&data.indexOf(y)>=i
+    return z
+  });
   
   return (
     <>
+     <button onClick={()=>{setI(i-100)}}>-</button>
+     <button onClick={()=>{setI(i+100)}}>+</button>
       <table>
         <thead>
         <tr>
