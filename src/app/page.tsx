@@ -1,19 +1,47 @@
 'use client'
 import data from "../../public/Jossa list.json"
-import React,{ useState } from "react";
+import React,{ useState, useEffect } from "react";
 
 export default function Home() {
-  const x = data;
+  
+  const [sortedData,setSortedData] = useState(data.sort((a,b)=>{
+    const l: number = typeof a.ClosingRank === "string" ? parseFloat(a.ClosingRank) : a.ClosingRank;
+    const m: number = typeof b.ClosingRank === "string" ? parseFloat(b.ClosingRank) : b.ClosingRank;
+    return l - m;
+  }))
   const [i,setI] = useState(0);
-  const h = x.filter((y)=>{
-    const z = data.indexOf(y)<100+i&&data.indexOf(y)>=i
+  const [rank,setRank] = useState(0);
+  const [displaySpace,setDisplaySpace] = useState(200);
+  const initialSortedList = sortedData.filter((y)=>{
+    const z = sortedData.indexOf(y)<displaySpace&&sortedData.indexOf(y)>=0
     return z
-  });
+  })
+  const [list,setList] = useState(initialSortedList);
+  useEffect(()=>{
+    const displayData = sortedData.filter((y)=>{
+      const z = sortedData.indexOf(y)<displaySpace+i&&sortedData.indexOf(y)>=i
+      return z
+    })
+    setList(displayData);
+  },[i,displaySpace,sortedData])
+  const rankChange = () => {
+    const tempSortedData = data.filter((y)=>{
+      const m: number = typeof y.ClosingRank === "string" ? parseFloat(y.ClosingRank) : y.ClosingRank;
+      return m>=rank;
+    })
+    setSortedData(tempSortedData);
+  }
   
   return (
     <>
-     <button onClick={()=>{setI(i-100)}}>-</button>
-     <button onClick={()=>{setI(i+100)}}>+</button>
+    <select defaultValue={200} onChange={(e)=>{setDisplaySpace(parseInt(e.target.value))}} name="displayList">
+      <option value={50}>50</option>
+      <option value={100}>100</option>
+      <option value={200}>200</option>
+    </select>
+     <button onClick={()=>{setI(i-displaySpace)}}>-</button>
+     <button onClick={()=>{setI(i+displaySpace)}}>+</button>
+     <input type="number" onChange={(e)=>{setRank(parseInt(e.target.value))}} /> <button onClick={()=>{rankChange()}}>Check with Rank</button>
       <table>
         <thead>
         <tr>
@@ -27,7 +55,7 @@ export default function Home() {
           <th>Closing Rank</th>
         </tr>
         </thead>
-        {h.map((y)=>{
+        {list.map((y)=>{
           return (
             <tbody key={data.indexOf(y)}>
               <tr>
