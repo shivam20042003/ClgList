@@ -24,6 +24,9 @@ export default function Home() {
     })
     setList(displayData);
   },[i,displaySpace,sortedData])
+  useEffect(()=>{
+    setI(0);
+  },[displaySpace,sortedData])
   const rankChange = () => {
     const tempSortedData = data.filter((y)=>{
       const m: number = typeof y.ClosingRank === "string" ? parseFloat(y.ClosingRank) : y.ClosingRank;
@@ -39,9 +42,9 @@ export default function Home() {
       <option value={100}>100</option>
       <option value={200}>200</option>
     </select>
-     <button onClick={()=>{setI(i-displaySpace)}}>-</button>
-     <button onClick={()=>{setI(i+displaySpace)}}>+</button>
-     <input type="number" onChange={(e)=>{setRank(parseInt(e.target.value))}} /> <button onClick={()=>{rankChange()}}>Check with Rank</button>
+     <button onClick={()=>{if(i-displaySpace>=0)setI(i-displaySpace)}}>-</button>
+     <button onClick={()=>{if(sortedData.length>i+displaySpace) setI(i+displaySpace)}}>+</button>
+     <input placeholder="JEE Mains Rank" type="number" onChange={(e)=>{setRank(parseInt(e.target.value))}} /> <button onClick={()=>{rankChange()}}>Check with Rank</button>
       <table>
         <thead>
         <tr>
