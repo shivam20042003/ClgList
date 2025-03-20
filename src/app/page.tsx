@@ -42,7 +42,8 @@ export default function Home() {
     })
     setSortedData(tempSortedData2);
   }
-  const filterList = () => {
+
+  useEffect(()=>{
     const tempSortedData = data.filter((y)=>{
       const m: number = typeof y.ClosingRank === "string" ? parseFloat(y.ClosingRank) : y.ClosingRank;
       return m>=rank;
@@ -51,10 +52,6 @@ export default function Home() {
       return y.SeatType == catagory &&  y.Gender == gender && y.Quota == quota
     })
     setSortedData(tempSortedData2);
-  }
-
-  useEffect(()=>{
-    filterList();
   },[catagory,gender,quota]);
   
   return (
