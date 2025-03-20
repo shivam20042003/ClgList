@@ -37,13 +37,24 @@ export default function Home() {
       const m: number = typeof y.ClosingRank === "string" ? parseFloat(y.ClosingRank) : y.ClosingRank;
       return m>=rank;
     })
-    setSortedData(tempSortedData);
-  }
-  useEffect(()=>{
-    const tempSortedData = data.filter((y)=>{
+    const tempSortedData2 = tempSortedData.filter((y)=>{
       return y.SeatType == catagory &&  y.Gender == gender && y.Quota == quota
     })
-    setSortedData(tempSortedData);
+    setSortedData(tempSortedData2);
+  }
+  const filterList = () => {
+    const tempSortedData = data.filter((y)=>{
+      const m: number = typeof y.ClosingRank === "string" ? parseFloat(y.ClosingRank) : y.ClosingRank;
+      return m>=rank;
+    })
+    const tempSortedData2 = tempSortedData.filter((y)=>{
+      return y.SeatType == catagory &&  y.Gender == gender && y.Quota == quota
+    })
+    setSortedData(tempSortedData2);
+  }
+
+  useEffect(()=>{
+    filterList();
   },[catagory,gender,quota]);
   
   return (
