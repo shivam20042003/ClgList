@@ -11,6 +11,7 @@ export default function Home() {
   }))
   const [i,setI] = useState(0);
   const [rank,setRank] = useState(0);
+  const [advance,setAdvance] = useState(0);
   const [catagory,setCatagory] = useState("OPEN");
   const [displaySpace,setDisplaySpace] = useState(200);
   const catagoryList = ["EWS","EWS (PwD)","OBC-NCL","OBC-NCL (PwD)","OPEN","OPEN (PwD)","SC","SC (PwD)","ST","ST (PwD)"]
@@ -46,7 +47,7 @@ export default function Home() {
     const tempSortedData = data.filter((y)=>{
       const m: number = typeof y.ClosingRank === "string" ? parseFloat(y.ClosingRank) : y.ClosingRank;
       const institute = y.Institute.slice(0,30);
-      return m>=rank&&institute!="Indian Institute of Technology";
+      return (m>=rank&&institute!="Indian Institute of Technology")||(m>=advance&&institute=="Indian Institute of Technology");
     })
     const tempSortedData2 = tempSortedData.filter((y)=>{
       return y.SeatType == catagory &&  y.Gender == gender && y.Quota == quota
@@ -58,7 +59,7 @@ export default function Home() {
     const tempSortedData = data.filter((y)=>{
       const m: number = typeof y.ClosingRank === "string" ? parseFloat(y.ClosingRank) : y.ClosingRank;
       const institute = y.Institute.slice(0,30);
-      return m>=rank&&institute!="Indian Institute of Technology";
+      return (m>=rank&&institute!="Indian Institute of Technology")||(m>=advance&&institute=="Indian Institute of Technology");
     })
     const tempSortedData2 = tempSortedData.filter((y)=>{
       return y.SeatType == catagory &&  y.Gender == gender && y.Quota == quota
@@ -75,7 +76,9 @@ export default function Home() {
     </select>
      <button onClick={()=>{if(i-displaySpace>=0)setI(i-displaySpace)}}>-</button>
      <button onClick={()=>{if(sortedData.length>i+displaySpace) setI(i+displaySpace)}}>+</button>
-     <input placeholder="JEE Mains Rank" type="number" onChange={(e)=>{setRank(parseInt(e.target.value))}} /> <button onClick={()=>{rankChange()}}>Check with Rank</button>
+     <input placeholder="JEE Mains Rank" type="number" onChange={(e)=>{setRank(parseInt(e.target.value))}} /> 
+     <input placeholder="JEE Advance Rank" type="number" onChange={(e)=>{setAdvance(parseInt(e.target.value))}} /> 
+     <button onClick={()=>{rankChange()}}>Check with Rank</button>
      <select defaultValue="OPEN" onChange={(e)=>{setCatagory(e.target.value)}} name="catagory">
       {catagoryList.map((val)=>{
         return (
