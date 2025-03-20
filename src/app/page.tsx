@@ -81,7 +81,7 @@ export default function Home() {
     <select name="Quota" defaultValue="AI" onChange={(e)=>{setQuota(e.target.value)}}>
       {quotaList.map((val)=>{
         return (
-          <option key={val} value="val">{val}</option>
+          <option key={val} value={val}>{val}</option>
         )
       })}
     </select>
