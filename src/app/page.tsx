@@ -1,7 +1,7 @@
 'use client'
 import data from "../../public/Jossa list.json"
 import React,{ useState, useEffect } from "react";
-
+import "./globals.css"
 export default function Home() {
   
   const [sortedData,setSortedData] = useState(data.sort((a,b)=>{
@@ -21,6 +21,16 @@ export default function Home() {
     const z = sortedData.indexOf(y)<displaySpace&&sortedData.indexOf(y)>=0
     return z
   })
+  const listBgColor = (y:string) => {
+    const institute =  y.slice(0, 30);
+    if (institute=="Indian Institute of Technology") {
+      const iit:string = "IIT"
+      return iit
+    } else {
+      const nonIit:string = "nonIIT"
+      return nonIit
+    }
+  }
   const [list,setList] = useState(initialSortedList);
   useEffect(()=>{
     const displayData = sortedData.filter((y)=>{
@@ -35,7 +45,8 @@ export default function Home() {
   const rankChange = () => {
     const tempSortedData = data.filter((y)=>{
       const m: number = typeof y.ClosingRank === "string" ? parseFloat(y.ClosingRank) : y.ClosingRank;
-      return m>=rank;
+      const institute = y.Institute.slice(0,30);
+      return m>=rank&&institute!="Indian Institute of Technology";
     })
     const tempSortedData2 = tempSortedData.filter((y)=>{
       return y.SeatType == catagory &&  y.Gender == gender && y.Quota == quota
@@ -46,7 +57,8 @@ export default function Home() {
   useEffect(()=>{
     const tempSortedData = data.filter((y)=>{
       const m: number = typeof y.ClosingRank === "string" ? parseFloat(y.ClosingRank) : y.ClosingRank;
-      return m>=rank;
+      const institute = y.Institute.slice(0,30);
+      return m>=rank&&institute!="Indian Institute of Technology";
     })
     const tempSortedData2 = tempSortedData.filter((y)=>{
       return y.SeatType == catagory &&  y.Gender == gender && y.Quota == quota
@@ -97,7 +109,7 @@ export default function Home() {
         </thead>
         {list.map((y)=>{
           return (
-            <tbody key={data.indexOf(y)}>
+            <tbody className={listBgColor(y.Institute)} key={data.indexOf(y)}>
               <tr>
                 <th>{data.indexOf(y)+1}</th>
                 <td>{y.Institute}</td>
