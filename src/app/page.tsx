@@ -3,7 +3,8 @@ import data from "../../public/Jossa list.json"
 import React,{ useState, useEffect } from "react";
 import "./globals.css"
 export default function Home() {
-  
+  //abf7b1
+  //background-color: rgb(244, 252, 239);
   const [sortedData,setSortedData] = useState(data.sort((a,b)=>{
     const l: number = typeof a.ClosingRank === "string" ? parseFloat(a.ClosingRank) : a.ClosingRank;
     const m: number = typeof b.ClosingRank === "string" ? parseFloat(b.ClosingRank) : b.ClosingRank;
