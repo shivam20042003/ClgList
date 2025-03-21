@@ -3,7 +3,6 @@ import data from "../../public/Jossa list.json"
 import React,{ useState, useEffect } from "react";
 import "./globals.css"
 import Select from 'react-select'
-import fi from "date-fns/esm/locale/fi/index.js";
 
 export default function Home() {
   //abf7b1
@@ -13,7 +12,7 @@ export default function Home() {
     const m: number = typeof b.ClosingRank === "string" ? parseFloat(b.ClosingRank) : b.ClosingRank;
     return l - m;
   }))
-  var clgList:Array<string> = [];
+  const clgList:Array<string> = [];
   
   const [clgMultiSelect, setClgMiltiSelect] = useState<Array<{ value: string; label: string }>>([]);
   const [selectedClg, setSelectedClg] = useState<Array<{ value: string; label: string }> | null>(null);
@@ -28,7 +27,7 @@ export default function Home() {
     })
     tempSortedData2.map((y)=>{clgList.push(y.Institute)});
     const nonRepeateClgList = Array.from(new Set(clgList))
-    var tempClgMulti:Array<any> = []
+    const tempClgMulti:Array<{ value: string; label: string }> = []
     nonRepeateClgList.map((y)=>{
       const temp = {value:y,label:y}
       tempClgMulti.push(temp);
@@ -79,7 +78,7 @@ export default function Home() {
       const tempSortedData2 = tempSortedData.filter((y)=>{
         return y.SeatType == catagory &&  y.Gender == gender && y.Quota == quota
       })
-      var tempSelectedClg:Array<string> = [];
+      const tempSelectedClg:Array<string> = [];
       selectedClg.map((y)=>{tempSelectedClg.push(y.value)});
       const tempData = tempSortedData2.filter((y)=>{
         return tempSelectedClg.includes(y.Institute);
@@ -109,7 +108,7 @@ export default function Home() {
       const tempSortedData2 = tempSortedData.filter((y)=>{
         return y.SeatType == catagory &&  y.Gender == gender && y.Quota == quota
       })
-      var tempSelectedClg:Array<string> = [];
+      const tempSelectedClg:Array<string> = [];
       selectedClg.map((y)=>{tempSelectedClg.push(y.value)});
       const tempData = tempSortedData2.filter((y)=>{
         return tempSelectedClg.includes(y.Institute);
@@ -139,7 +138,7 @@ export default function Home() {
       const tempSortedData2 = tempSortedData.filter((y)=>{
         return y.SeatType == catagory &&  y.Gender == gender && y.Quota == quota
       })
-      var tempSelectedClg:Array<string> = [];
+      const tempSelectedClg:Array<string> = [];
       selectedClg.map((y)=>{tempSelectedClg.push(y.value)});
       const tempData = tempSortedData2.filter((y)=>{
         return tempSelectedClg.includes(y.Institute);
