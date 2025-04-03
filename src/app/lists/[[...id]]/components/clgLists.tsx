@@ -2,7 +2,15 @@
 
 import React,{useState} from 'react'
 
-function ClgLists(props: { dataProp: any[]; }) {
+function ClgLists(props: { dataProp: {
+    AcademicProgramName:string,
+    ClosingRank:number|string,
+    Gender:string,
+    Institute:string,
+    OpeningRank:number|string,
+    Quota:string,
+    SeatType:string
+}[]; }) {
     const [model,setModel] = useState(false);
     const allClg:Array<string> = [];
     props.dataProp.map((y)=>{allClg.push(y.Institute)});

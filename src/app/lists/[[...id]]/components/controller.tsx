@@ -2,7 +2,15 @@
 import React, { useState } from 'react'
 import { redirect } from 'next/navigation'
 
-function Controller(props: { dataProp: any[],disPerPage:number ,ids:any[] }) {
+function Controller(props: { dataProp: {
+    AcademicProgramName:string,
+    ClosingRank:number|string,
+    Gender:string,
+    Institute:string,
+    OpeningRank:number|string,
+    Quota:string,
+    SeatType:string
+}[],disPerPage:number ,ids:string[] }) {
     const catagoryList = ["EWS","EWS (PwD)","OBC-NCL","OBC-NCL (PwD)","OPEN","OPEN (PwD)","SC","SC (PwD)","ST","ST (PwD)"]
     const quotaList = ["AI","GO","HS","JK","LA","OS"];
     const pages = props.dataProp.length/props.disPerPage;
@@ -11,7 +19,7 @@ function Controller(props: { dataProp: any[],disPerPage:number ,ids:any[] }) {
     const [gender,setGender] = useState("Gender-Neutral");
     const [quota,setQuota] = useState("AI");
     const [catagory,setCatagory] = useState("OPEN");
-    const sixId = props.ids[6] ? props.ids[6] : 0 ;
+    const sixId = props.ids[6] ? props.ids[6] : "0" ;
     const onSearch = () => {
         const strMainsRank = mainsRank?.toString();
         const strAdvanceRank = advanceRank?.toString();
@@ -21,14 +29,14 @@ function Controller(props: { dataProp: any[],disPerPage:number ,ids:any[] }) {
         redirect(`/lists/${props.ids[0]}/${strMainsRank}/${strAdvanceRank}/${strCatagory}/${strGender}/${strQuota}`);
     }
     const onDec = () => {
-        if(sixId==0){
+        if(sixId=="0"){
             return
         }
         redirect(`/lists/${props.ids[0]}/${props.ids[1]}/${props.ids[2]}/${props.ids[3]}/${props.ids[4]}/${props.ids[5]}/${parseInt(sixId)-1}`)
     }
 
     const onInc = () => {
-        if(sixId==Math.ceil(pages)-1){
+        if(parseInt(sixId)==Math.ceil(pages)-1){
             return
         }
         redirect(`/lists/${props.ids[0]}/${props.ids[1]}/${props.ids[2]}/${props.ids[3]}/${props.ids[4]}/${props.ids[5]}/${parseInt(sixId)+1}`)

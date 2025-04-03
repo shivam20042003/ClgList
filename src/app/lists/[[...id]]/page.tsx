@@ -6,7 +6,7 @@ import ClgLists from './components/clgLists';
 import Controller from "./components/controller";
 
 
-async function page({params}:{params:Promise<any>}) {
+async function page({params}:{params:Promise<{id:string[]}>}) {
   const catagoryList = ["EWS","EWS (PwD)","OBC-NCL","OBC-NCL (PwD)","OPEN","OPEN (PwD)","SC","SC (PwD)","ST","ST (PwD)"];
   const quotaList = ["AI","GO","HS","JK","LA","OS"];
   const genderQuotaList = ["Gender-Neutral","Female-only (including Supernumerary)"];
