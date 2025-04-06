@@ -24,7 +24,8 @@ function ClgLists(props: { dataProp: {
     const model = useModelStore((state)=>state.model);
     const setModel = useModelStore((state)=>state.setModel);
     const recFun = useDataStore((state)=>state.clgSelectionTweeking); 
-
+    const deSelecterAll = useDataStore((state)=>state.deselectAll);
+    const selectAll = useDataStore((state)=>state.selectAll);
 
     const allClg:Array<string> = [];
     props.dataProp.map((y)=>{allClg.push(y.Institute)});
@@ -60,30 +61,34 @@ function ClgLists(props: { dataProp: {
   return (
     <div className='kyaReHelloWorld'>
         <button className={styleOfButton(!model)} onClick={()=>{setModel()}}>{!model?("<"):(">")}</button>
-    {model&&<table className="clgTable">
-            <thead>
-                <tr>
-                    <th>Institute Names</th>
-                </tr>
-            </thead>{diffClgList.map((y)=>{
-        return(
-            <tbody  key={y}>
-                <tr>
-                    <td> <input type="checkbox" value={y} onChange={(e)=>{RanFun(e.target.checked,e.target.value)}} id={y} /> <label className={listBgColor(y)} htmlFor={y}>{y}</label></td>
-                </tr>
-            </tbody>
-        )
-      })}
-            {nonRepeateClgList.map((y)=>{
-        return(
-            <tbody  key={y}>
-                <tr>
-                    <td> <input defaultChecked type="checkbox" value={y} onChange={(e)=>{RanFun(e.target.checked,e.target.value)}} id={y} /> <label className={listBgColor(y)} htmlFor={y}>{y}</label></td>
-                </tr>
-            </tbody>
-        )
-      })}
-      </table>}
+    {model&&<div className='clgTable'>
+        <button onClick={deSelecterAll}>Deselect all</button>
+        <button onClick={selectAll}>Select all</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Institute Names</th>
+                    </tr>
+                </thead>{diffClgList.map((y)=>{
+            return(
+                <tbody  key={y}>
+                    <tr>
+                        <td> <input type="checkbox" value={y} onChange={(e)=>{RanFun(e.target.checked,e.target.value)}} id={y} /> <label className={listBgColor(y)} htmlFor={y}>{y}</label></td>
+                    </tr>
+                </tbody>
+            )
+        })}
+                {nonRepeateClgList.map((y)=>{
+            return(
+                <tbody  key={y}>
+                    <tr>
+                        <td> <input defaultChecked type="checkbox" value={y} onChange={(e)=>{RanFun(e.target.checked,e.target.value)}} id={y} /> <label className={listBgColor(y)} htmlFor={y}>{y}</label></td>
+                    </tr>
+                </tbody>
+            )
+        })}
+        </table>
+      </div>}
       </div>
   )
 }

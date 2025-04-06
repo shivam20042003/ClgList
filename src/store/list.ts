@@ -30,7 +30,9 @@ export type dataState = {
 }
 
 export type dataAction = {
-    clgSelectionTweeking: (checker:boolean,clgName:string) => void;
+    clgSelectionTweeking: (checker:boolean,clgName:string) => void,
+    deselectAll: () => void,
+    selectAll: () => void
 }
 
 export type modelState = {
@@ -49,6 +51,14 @@ export const useDataStore = create<dataState & dataAction>()((set)=>({
                 const x = ifelseProblemFix(checker,state.NRCL,clgName);
                 return x.includes(y.Institute);
             })
+    })),
+    deselectAll: () => set(()=>({
+            NRCL: [],
+            jossaData:[]
+    })),
+    selectAll: () => set(()=>({
+            NRCL: nonRepeateClgList,
+            jossaData: data
     }))
 }))
 
