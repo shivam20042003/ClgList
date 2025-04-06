@@ -28,9 +28,9 @@
 }
 .kyaReHelloWorld{
     z-index: 20;
-    position:absolute;
+    position:fixed;
     right: 0;
-    height: 100%;
+    height: 55%;
     background-color:white ;
     display: flex;
     overflow:auto;

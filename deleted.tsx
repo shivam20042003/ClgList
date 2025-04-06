@@ -1,5 +1,5 @@
 'use client'
-import data from "../../public/Jossa list.json"
+import data from "./public/Jossa list.json"
 import React,{ useState, useEffect } from "react";
 import "./globals.css"
 import { redirect } from 'next/navigation'
@@ -41,7 +41,6 @@ export default function Home() {
   }
   const [list,setList] = useState(initialSortedList);
   useEffect(()=>{
-    redirect("/lists/50/0/0/4/0/0");
     const clgList:Array<string> = [];
     const tempSortedData = data.filter((y)=>{
       const m: number = typeof y.ClosingRank === "string" ? parseFloat(y.ClosingRank) : y.ClosingRank;
